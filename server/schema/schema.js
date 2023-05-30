@@ -109,7 +109,11 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        return Client.findByIdAndRemove(args.id);
+        return Project.deleteMany({ clientId: args.id }) 
+          .then(() => Client.findByIdAndRemove(args.id)) 
+          .catch((err) => {
+            throw new Error(err);
+          });
       },
     },
 
