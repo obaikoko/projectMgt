@@ -29,6 +29,7 @@ const ProjectType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
+    url: { type: GraphQLString },
     status: { type: GraphQLString },
     client: {
       type: ClientType,
@@ -123,6 +124,7 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
+        url: { type: new GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
             name: 'projectStatus',
@@ -142,6 +144,7 @@ const mutation = new GraphQLObjectType({
         const project = Project.create({
           name: args.name,
           description: args.description,
+          url: args.url,
           status: args.status,
           clientId: args.clientId,
         });
@@ -157,6 +160,7 @@ const mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
+        url: { type: GraphQLString },
         status: {
           type: new GraphQLEnumType({
             name: 'projectStatusUpdate',
@@ -174,6 +178,7 @@ const mutation = new GraphQLObjectType({
           {
             name: args.name,
             description: args.description,
+            url: args.url,
             status: args.status,
           },
           {
